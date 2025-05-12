@@ -1,0 +1,43 @@
+<% if (mensaje) { %>
+  <div class="alert alert-info"><%= mensaje %></div>
+<% } %>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Titulo</th>
+      <th>Autor</th>
+      <th>Anio</th>
+      <th>Genero</th>
+      <th>Edicion</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% libros.forEach(libro => { %>
+      <tr>
+        <td><a href="/libros/<%= libro._id %>"><%= libro.titulo %></a></td>
+        <td><%= libro.autor %></td>
+        <td><%= libro.anio_publicacion %></td>
+        <td><%= libro.genero %></td>
+        <td><%= libro.edicion %></td>
+        <td>
+          <a href="/libros/<%= libro._id %>/editar" class="btn btn-warning btn-sm">Editar</a>
+          <form action="/libros/<%= libro._id %>/eliminar?_method=DELETE" method="POST" style="display:inline;">
+            <button class="btn btn-danger btn-sm">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<div class="mt-4 d-flex flex-wrap justify-content-between align-items-center bg-info p-3 rounded">
+  <a href="/libros/nuevo" class="btn btn-primary mb-2">➕ Nuevo Libro</a>
+
+  <form method="GET" class="d-flex gap-2 mb-0">
+    <input type="number" name="anio" placeholder="Filtrar por año" class="form-control">
+    <input type="number" name="edicion" placeholder="Filtrar por edición" class="form-control">
+    <button type="submit" class="btn btn-secondary">Filtrar</button>
+  </form>
+</div>
